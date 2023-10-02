@@ -42,7 +42,7 @@ services:
     container_name:  monica-web
     build: ./web
     ports:
-      - 4080:80
+      - 4000:80
     restart: always
     volumes:
       - /volume1/docker/monica/storage:/var/www/html/storage:ro
