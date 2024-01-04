@@ -1,18 +1,3 @@
-# Run Monica with nginx proxy
-#
-# You might want to set these variables in you .env file:
-#
-#- APP_ENV=production
-#- APP_URL with your domain (https scheme)
-#- APP_KEY with a random string
-#
-#- DB_HOST=db
-# See `db` container for these values:
-#- DB_DATABASE=monica
-#- DB_USERNAME=monica
-#- DB_PASSWORD=secret
-#
-
 version: "3.9"
 
 services:
@@ -22,9 +7,9 @@ services:
     depends_on:
       - db
     env_file: .env
+    restart: always
     volumes:
       - /volume1/docker/monica/storage:/var/www/html/storage
-    restart: always
 
   db:
     container_name:  monica-db
