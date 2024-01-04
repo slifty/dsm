@@ -9,3 +9,4 @@ This is a [nice post](https://www.reddit.com/r/synology/comments/cdleki/suggeste
 The services set up in this repository map to the following ports:
 
 - 4000 :: Monica (http) - [monica](./monica/README.md)
+- 4001 :: Vaultwarden (http) - [vaultwarden](./vaultwarden/README.md)
