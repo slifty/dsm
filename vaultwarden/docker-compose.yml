@@ -5,7 +5,7 @@ services:
     container_name: vaultwarden-app
     image: vaultwarden/server:latest
     depends_on:
-      - db
+      - vaultwarden-db
     env_file: .env
     volumes:
       - /volume1/docker/vaultwarden/data:/data
@@ -14,12 +14,11 @@ services:
       - 4001:80
   vaultwarden-db:
     container_name: vaultwarden-db
-    image: mysql:5.7
+    image: postgres:latest
     environment:
-      - MYSQL_RANDOM_ROOT_PASSWORD=true
-      - MYSQL_DATABASE=${VW_DB_DATABASE}
-      - MYSQL_USER=${VW_DB_USERNAME}
-      - MYSQL_PASSWORD=${VW_DB_PASSWORD}
+      - POSTGRES_DB=${VW_DB_DATABASE}
+      - POSTGRES_USER=${VW_DB_USERNAME}
+      - POSTGRES_PASSWORD=${VW_DB_PASSWORD}
     volumes:
-      - /volume1/docker/vaultwarden/mysql:/var/lib/mysql
+      - /volume1/docker/vaultwarden/postgres/data:/var/lib/postgresql/data
     restart: always

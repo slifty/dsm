@@ -6,7 +6,7 @@ This installation is based on their readme combined with their [configuration ov
 We have a [Docker Compose](./docker-compose.yml) file that creates the following containers:
 
 1. `vaultwarden-app`, which is a single container that runs and serves vaultwarden.
-2. `vaultwarden-db`, which is a MySQL instance to power the backend.
+2. `vaultwarden-db`, which is a PostgreSQL instance to power the backend.
 
 We rely on the DSM software for the following:
 
@@ -16,7 +16,8 @@ We rely on the DSM software for the following:
 4. HTTPS (including certificate management)
 5. Back ups and storage
 
-You are going to need to figure out your own solution for SMTP if you want Monica to be able to send emails.  You might consider using [Amazon SES](https://aws.amazon.com/ses/) which seems to cost 10 cents a month for up to 1000 emails.
+You are going to need to figure out your own solution for SMTP for Vaultwarden to be able to send emails.
+You might consider using [Amazon SES](https://aws.amazon.com/ses/) which costs 10 cents a month for up to 1000 emails.
 
 ## Installing
 
@@ -25,7 +26,7 @@ You are going to need to figure out your own solution for SMTP if you want Monic
 
 2. Create a folder at `/volume1/docker/vaultwarden/data` (see [Folder locations](####folder-locations)). This stores data associated with your Vaultwarden instance.
 
-3. Create a folder at `/volume1/docker/vaultwarden/mysql` (see [Folder locations](####folder-locations)).  This is where the database files associated with this Vaultwarden installation as well -- this will prevent you from losing all of your data when you update your Docker images over time.
+3. Create a folder at `/volume1/docker/vaultwarden/postgres/data` (see [Folder locations](####folder-locations)).  This is where the database files associated with this Vaultwarden installation as well -- this will prevent you from losing all of your data when you update your Docker images over time.
 
 #### Folder locations
 
