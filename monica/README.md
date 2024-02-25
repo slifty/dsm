@@ -6,7 +6,7 @@ This installation is based on the FPM example [provided in the MonicaHQ README](
 Specifically, we have a [Docker Compose](./docker-compose.yml) file that creates the following containers
 
 1. monica-app, which is the FPM instance of monica.
-2. monica-db, which is a MySQL instance to power the backend.
+2. monica-db, which is a PostgreSQL instance to power the backend.
 3. monica-web, which is the nginx instance that serves the monica FPM content via HTTP (not https).
 
 We rely on the DSM software for the following:
@@ -26,7 +26,7 @@ You are going to need to figure out your own solution for SMTP if you want Monic
 
 2. Create a folder at `/volume1/docker/monica/storage` (see [Folder locations](####folder-locations)). This stores static assets associated with your Monica instance -- things like photos uploaded for your contacts.
 
-3. Create a folder at `/volume1/docker/monica/mysql` (see [Folder locations](####folder-locations)).  This is where the database files associated with this Monica installation as well -- this will prevent you from losing all of your data when you update your Docker images over time.
+3. Create a folder at `/volume1/docker/monica/postgresql` (see [Folder locations](####folder-locations)).  This is where the database files associated with this Monica installation as well -- this will prevent you from losing all of your data when you update your Docker images over time.
 
 #### Folder locations
 
