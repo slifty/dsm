@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  homeassistant-app:
+    container_name: homeassistant-app
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    env_file: .env
+    volumes:
+      - /volume1/docker/homeassistant/config:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
