@@ -1,4 +1,4 @@
-FROM monica:fpm AS monica
+FROM slifty/monica:latest AS monica
 
 FROM nginx:alpine
 

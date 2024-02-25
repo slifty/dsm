@@ -3,7 +3,7 @@ version: "3.9"
 services:
   app:
     container_name:  monica-app
-    image: monica:fpm
+    image: slifty/monica:latest
     depends_on:
       - db
     env_file: .env
