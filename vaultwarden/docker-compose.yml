@@ -14,7 +14,7 @@ services:
       - 4001:80
   vaultwarden-db:
     container_name: vaultwarden-db
-    image: postgres:latest
+    image: postgres:16
     environment:
       - POSTGRES_DB=${VW_DB_DATABASE}
       - POSTGRES_USER=${VW_DB_USERNAME}
