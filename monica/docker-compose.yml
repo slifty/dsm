@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   app:
-    container_name:  monica-app
+    container_name: monica-app
     image: slifty/monica:latest
     depends_on:
       - db
@@ -12,7 +12,7 @@ services:
       - /volume1/docker/monica/storage:/var/www/html/storage
 
   db:
-    container_name:  monica-db
+    container_name: monica-db
     image: postgres:latest
     environment:
       - POSTGRES_DB=${DB_DATABASE}
@@ -23,7 +23,7 @@ services:
     restart: always
 
   web:
-    container_name:  monica-web
+    container_name: monica-web
     build: ./web
     ports:
       - 4000:80

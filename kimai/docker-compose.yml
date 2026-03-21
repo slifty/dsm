@@ -1,0 +1,32 @@
+version: '3.5'
+services:
+
+  db:
+    container_name: kimai-db
+    image: mysql:5.7
+    volumes:
+      - /volume1/docker/kimai/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    command: --default-storage-engine innodb
+    restart: unless-stopped
+    healthcheck:
+      test: mysqladmin -p$$MYSQL_ROOT_PASSWORD ping -h localhost
+      interval: 20s
+      start_period: 10s
+      timeout: 10s
+      retries: 3
+
+  app:
+    container_name: kimai-app
+    image: kimai/kimai2:apache
+    volumes:
+      - /volume1/docker/kimai/data:/opt/kimai/var/data
+      - /volume1/docker/kimai/plugins:/opt/kimai/var/plugins
+    ports:
+      - 4004:8001
+    env_file: .env
+    restart: unless-stopped
