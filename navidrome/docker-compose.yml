@@ -1,0 +1,13 @@
+version: '3.5'
+services:
+
+  app:
+    container_name: navidrome-app
+    image: deluan/navidrome:latest
+    ports:
+      - 4005:4533
+    env_file: .env
+    volumes:
+      - /volume1/docker/navidrome/data:/data
+      - ${MUSIC_PATH}:/music:ro
+    restart: unless-stopped
