@@ -11,7 +11,7 @@ services:
       - /volume1/docker/vaultwarden/data:/data
     restart: always
     ports:
-      - 4001:80
+      - 127.0.0.1:4001:80
   vaultwarden-db:
     container_name: vaultwarden-db
     image: postgres:16
