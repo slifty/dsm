@@ -10,11 +10,10 @@ We have a [Docker Compose](./docker-compose.yml) file that creates the following
 
 We rely on the DSM software for the following:
 
-1. Dynamic DNS functionality
-2. Managing the docker containers
-3. Creating a reverse proxy
-4. HTTPS (including certificate management)
-5. Back ups and storage
+1. Managing the docker containers
+2. Back ups and storage
+
+We rely on a [Cloudflare Tunnel](../cloudflared/README.md) for access from outside the LAN, including HTTPS.
 
 You are going to need to figure out your own solution for SMTP for Vaultwarden to be able to send emails.
 You might consider using [Amazon SES](https://aws.amazon.com/ses/) which costs 10 cents a month for up to 1000 emails.
@@ -34,7 +33,7 @@ In the DSM File Manager the `volume1` seems to be omitted from the path.  I beli
 
 ### Setting up your `.env` file
 
-1. Populate the `.env` file:
+1. Populate the `.env` file.  Set `DOMAIN` to the HTTPS host name you will route through the tunnel (e.g. `DOMAIN=https://vaultwarden.yourdomain.com`):
 
 ```bash
 cp .env.template .env
@@ -55,31 +54,7 @@ docker-compose up -d
 
 This will take a while to spin up everything and run migrations; you can use the DSM to view the logs (or I suppose the docker CLI if you're fancy).
 
-### (Optional) Setting up Dynamic DNS / a host name
-The instructions above will allow you to access an `http` version of Vaultwarden by navigating directly to `http://your.dsm.ip.address:4001`.  However, if you want to be able to access Vaultwarden outside of your LAN (and using https) you'll need to use DSM to set up dynamic DNS (DDNS) and a reverse proxy.
+### Setting up a host name
+Vaultwarden is only reachable through its host name.  Set up a [Cloudflare Tunnel](../cloudflared/README.md) and route a hostname (e.g. `vaultwarden.yourdomain.com`) to `localhost:4001`.
 
-1. Set up a dynamic DNS service.  Synology provides one for free, but even if you use a third party service the [instructions are generally the same](https://kb.synology.com/en-us/DSM/help/DSM/AdminCenter/connection_ddns).  This would give you something like `http://username.synology.me`
-
-3. Create a CNAME DNS record on a separate domain name.  For instance `vaultwarden.yourdomain.com`.  The value for this record should be your DDNS domain (e.g. `username.synology.me`)
-
-4. Use DSM to [set up an HTTPS certificate](https://kb.synology.com/en-nz/DSM/help/DSM/AdminCenter/connection_certificate) for the specified subdomain.
-
-5. Use the DSM's Synology Login Portal to create a [reverse proxy](https://kb.synology.com/en-ca/DSM/help/DSM/AdminCenter/system_login_portal_advanced) that routes your custom domain name to port 4001.
-
-Values for proxy rules:
-
-```
-Reverse Proxy Name: Vaultwarden (HTTPS) <-- this can be whatever you want
-
-SOURCE
-Protocol: HTTPS
-Hostname: vaultwarden.yourdomain.com
-Port: 443
-Enable HSTS: no
-Access control profile: Not configured <-- you can limit access to specific IPs if you want to be extra safe
-
-DESTINATION
-Protocol: HTTP
-Hostname: localhost
-Port: 4001
-```
+Don't forward ports on your router to the DSM for this; the tunnel doesn't need them, and forwarding them exposes the rest of the DSM to the internet.

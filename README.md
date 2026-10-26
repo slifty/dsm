@@ -5,6 +5,8 @@ This repository holds various documentation, configurations, docker compose file
 ## General Security
 This is a [nice post](https://www.reddit.com/r/synology/comments/cdleki/suggested_precautions_when_exposing_your_synology/) with suggested precautions when exposing synology to the internet.
 
+Vaultwarden is served through a [Cloudflare Tunnel](./cloudflared/README.md) rather than by forwarding ports on the router to the DSM.
+
 ## Internal Service / Port Mapping
 The services set up in this repository map to the following ports:
 
